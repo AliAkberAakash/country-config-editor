@@ -1,15 +1,20 @@
 import 'dart:convert';
 
-List iterateJson(String jsonString, countryCode, key, value) {
+const COUNTRY_CODE = "countryCode";
+const CONFIG = "config";
+
+String iterateJson(String jsonString, List<String> countryCodeList, featureName, key, value) {
   final json = jsonDecode(jsonString);
 
   if (json is List) {
     for (int i = 0; i < json.length; i++) {
-      if(json[i]["countryCode"] == countryCode) {
-        json[i] = processJson(json[i], key, value);
+      if(countryCodeList.contains(json[i][COUNTRY_CODE])) {
+        if(json[i][CONFIG][featureName] != null) {
+          json[i][CONFIG][featureName] = processJson(json[i][CONFIG][featureName], key, value);
+        }
       }
     }
-    return json;
+    return jsonEncode(json);
   } else {
     throw Exception("Invalid json");
   }
