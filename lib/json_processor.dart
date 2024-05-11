@@ -24,7 +24,23 @@ Map<String, dynamic> processJson(
     Map<String, dynamic> map, dynamic key, dynamic value) {
   for (var element in map.entries) {
     if (element.key == key) {
-      map[key] = value;
+
+      if(map[key] is bool) {
+        bool result = bool.parse(value.toString());
+        map[key] = result;
+      }else if(map[key] is int){
+        int result = int.parse(value.toString());
+        map[key] = result;
+      }else if(map[key] is double) {
+        double result = double.parse(value.toString());
+        map[key] = result;
+      }else if (map[key] is List) {
+        final tmpList = value.toString().split(",");
+        map[key] = tmpList;
+      }else{
+        map[key] = value;
+      }
+
       return map;
     }
 

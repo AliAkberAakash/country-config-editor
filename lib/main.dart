@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Column(
+                    child: ListView(
                       children: [
                         TextField(
                           controller: _textController,
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           controller: _countryCodeController,
                           decoration: const InputDecoration(
                               labelText: 'Enter Country Codes',
-                              hintText: 'example: bd,co,ml'),
+                              hintText: 'Example: bd,hk,ml'),
                         ),
                         const SizedBox(height: 20),
                         TextField(
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 20,
                   ),
                   Expanded(
-                    child: Container(
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,16 +164,39 @@ class _MyHomePageState extends State<MyHomePage> {
                             "1. Paste the full country config file exactly as it is",
                           ),
                           Text(
-                            "2. Enter the country code, the feature name, the field you want to change and the new value",
+                            "2. Enter the country codes separated by comma. Avoid any white spaces or linebreaks.",
                           ),
                           Text(
-                            "3. Hit apply changes",
+                            "3. Enter the feature name and the name of the field you want to change",
                           ),
                           Text(
-                            "4. Copy the updated json and use it!",
+                            "If the field is nested, for example, inside \"extras\" just add the field name",
+                            style: TextStyle(
+                              color: theme.colorScheme.error,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "4. Enter the new value of the field.",
+                          ),
+                          Text(
+                            "If the field is of type Boolean, Int, Double or String just enter the value normally (no quotes).\n"
+                            "If the field is of type List, enter the whole list with previous values and new values separated by commas. "
+                            "For example if you want to add \"LS\" to business type and \"DMART\" is already there, enter the values like this\nDMART,LS\n"
+                            "Avoid any white spaces or linebreaks. Currently only list of String is supported.",
+                            style: TextStyle(
+                              color: theme.colorScheme.error,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "5. Hit apply changes",
+                          ),
+                          Text(
+                            "6. Copy the updated json and use it!",
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 20,
                           ),
                           Text(
                             "Upcoming Features",
@@ -199,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "- MacOs app to update and upload directly into firebase",
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 20,
                           ),
                           Text(
                             "For any inquiry or feedback reach out to me at ali.akber@deliveryhero.com",
